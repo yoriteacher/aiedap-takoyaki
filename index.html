@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>와사비 일본어 프로젝트 — AIEDAP 성과공유회</title>
+<meta name="description" content="그림책·데이터·AI로 잇는 와사비(WA·SA·BI) 일본어 말하기 프로젝트 — 수업 자료와 결과">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
+<style>
+:root{
+  --accent:#003C83; --tint:#E6ECF4; --ink:#111827; --ink2:#374151; --gray:#6B7280;
+  --gray2:#9CA3AF; --line:#E5E7EB; --bg:#F3F5F8; --card:#FFFFFF; --page:#FFFFFF;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --accent:#8DB4EA; --tint:#1B2A40; --ink:#F3F4F6; --ink2:#D1D5DB; --gray:#9CA3AF;
+         --gray2:#4B5563; --line:#2B3240; --bg:#171B22; --card:#1E232C; --page:#12151B; }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink);
+  font-family:Pretendard,"Noto Sans JP",system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  line-height:1.6;word-break:keep-all;overflow-wrap:break-word}
+.jp{font-family:"Noto Sans JP",Pretendard,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header{background:var(--accent);color:#fff;padding:36px 0 32px}
+@media (prefers-color-scheme: dark){ header{background:#0B2550} }
+.kicker{font-size:14px;font-weight:700;opacity:.85;margin:0 0 8px}
+h1{font-size:clamp(26px,6vw,40px);line-height:1.25;margin:0 0 10px;letter-spacing:-.02em}
+.sub{margin:0;font-size:16px;opacity:.9}
+.who{margin:14px 0 0;font-size:14px;opacity:.85}
+section{padding:32px 0 8px}
+h2{font-size:22px;margin:0 0 14px;color:var(--accent);display:flex;align-items:center;gap:10px}
+h2::before{content:"";width:6px;height:22px;background:var(--accent);border-radius:2px}
+.grid{display:grid;gap:12px}
+@media(min-width:640px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}}
+.card{background:var(--bg);border-radius:14px;padding:16px}
+a.card{display:block;color:inherit;text-decoration:none;border:1px solid var(--line);background:var(--card);transition:border-color .15s}
+a.card:hover,a.card:focus-visible{border-color:var(--accent)}
+.tag{display:inline-block;font-size:12px;font-weight:700;color:var(--accent);background:var(--tint);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+.card h3{margin:0 0 4px;font-size:17px}
+.card p{margin:0;color:var(--ink2);font-size:14px}
+.go{display:block;margin-top:8px;font-size:13px;font-weight:700;color:var(--accent)}
+.kpi{text-align:center}
+.kpi b{display:block;font-size:26px;color:var(--accent);line-height:1.2}
+.kpi span{font-size:13px;color:var(--ink2)}
+.flow{width:100%;border-collapse:separate;border-spacing:0;font-size:14px}
+.flow th,.flow td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+.flow thead th{background:var(--accent);color:#fff;font-weight:700}
+@media (prefers-color-scheme: dark){ .flow thead th{background:#0B2550} }
+.flow td.st{font-weight:800;color:var(--accent);white-space:nowrap}
+.scroll{overflow-x:auto;border-radius:12px;border:1px solid var(--line)}
+.bars{display:grid;gap:12px}
+.bar .lab{display:flex;justify-content:space-between;font-size:14px;margin-bottom:4px}
+.bar .lab em{font-style:normal;color:var(--gray)}
+.bar .lab strong{color:var(--accent)}
+.track{height:10px;background:var(--bg);border-radius:6px;position:relative;margin-bottom:3px}
+.track i{position:absolute;left:0;top:0;bottom:0;border-radius:6px}
+.pre i{background:var(--gray2)} .post i{background:var(--accent)}
+.legend{font-size:13px;color:var(--gray);margin:0 0 12px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 4px 0 10px;vertical-align:middle}
+.photos{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:640px){.photos{grid-template-columns:repeat(3,1fr)}}
+figure{margin:0}
+figure img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;background:var(--bg);display:block}
+figcaption{font-size:13px;color:var(--ink2);margin-top:4px;text-align:center}
+blockquote{margin:0;background:var(--tint);border-radius:12px;padding:14px 16px;font-size:15px}
+blockquote small{display:block;color:var(--gray);margin-top:6px}
+.rule .card h3{color:var(--accent)}
+.rule ul{margin:6px 0 0;padding-left:18px;color:var(--ink2);font-size:14px}
+footer{padding:28px 0 40px;color:var(--gray);font-size:13px;border-top:1px solid var(--line);margin-top:32px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <p class="kicker">2026 AIEDAP 글로벌 성과공유회 · 고2 일본어 회화</p>
+    <h1><span class="jp">もったいない</span>에서 한일 교류까지,<br>일본어로 지구를 말하다</h1>
+    <p class="sub">그림책·데이터·AI로 잇는 와사비(WA·SA·BI) 일본어 말하기 프로젝트</p>
+    <p class="who">김정민 · 흥진고등학교(경기도교육청)</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section>
+    <h2>바로 가기</h2>
+    <div class="grid g2">
+      <a class="card" href="files/poster.pdf"><span class="tag">포스터</span><h3>성과공유회 포스터 (PDF)</h3><p>목표·내용·흐름·결과를 한 장에</p><span class="go">열기 →</span></a>
+      <a class="card" href="https://yoriteacher.github.io/mottainai/"><span class="tag">AI 디지털 도구</span><h3>디지털학습지 「<span class="jp">もったいない</span>」</h3><p>차시별 듣기·말하기·녹음·쓰기 제출, 1·8차시 녹음 비교</p><span class="go">열기 →</span></a>
+      <a class="card" href="https://yoriteacher.github.io/wasabi2026/"><span class="tag">AI 디지털 도구</span><h3>와사비 일본어 발음 연습</h3><p>AI 음성인식으로 내 말이 어떻게 들리는지 확인하는 연습</p><span class="go">열기 →</span></a>
+      <a class="card" href="game/onsen.html"><span class="tag">예시 게임</span><h3>분리수거 온천여행 게임</h3><p>쓰레기를 바르게 분류하면 일본 온천에 도착하는 예시 웹앱</p><span class="go">열기 →</span></a>
+    </div>
+  </section>
+
+  <section>
+    <h2>수업 자료 (교사용)</h2>
+    <div class="grid g2">
+      <a class="card" href="files/mottainai_lesson_plan.pdf"><span class="tag">지도안</span><h3><span class="jp">もったいない</span> 9차시 교수·학습 과정안</h3><p>그림책 17장면 · 공통 여섯 문장 · 재능 성찰</p><span class="go">PDF 열기 →</span></a>
+      <a class="card" href="files/mottainai_worksheet.pdf"><span class="tag">학습지</span><h3><span class="jp">もったいない</span> 학습지 1~9차시</h3><p>차시당 한 장, 9쪽</p><span class="go">PDF 열기 →</span></a>
+      <a class="card" href="files/eco_campaign_worksheet.pdf"><span class="tag">학습지</span><h3>환경보호 일본어 캠페인 학습지</h3><p>S.M.I.L.E. 7단계 · 빅카인즈 분석 · AI 첨삭 기록 · 한일 교류</p><span class="go">PDF 열기 →</span></a>
+      <a class="card" href="files/eco_campaign_assessment.pdf"><span class="tag">평가</span><h3>환경보호 일본어 캠페인 수행평가 채점기준</h3><p>13점 · 영역별 채점기준표</p><span class="go">PDF 열기 →</span></a>
+    </div>
+  </section>
+
+  <section>
+    <h2>한눈에 보기</h2>
+    <div class="grid g4">
+      <div class="card kpi"><b>87명</b><span>고2 일본어 회화<br>2개 프로젝트 · 19차시</span></div>
+      <div class="card kpi"><b>+0.57</b><span>사전→사후 평균(5점)<br>n=56 · p&lt;.001 · d=0.81</span></div>
+      <div class="card kpi"><b>33.8→84.8%</b><span>한일 생활문화를<br>비교해 설명할 수 있다</span></div>
+      <div class="card kpi"><b>59.2→86.4%</b><span>AI가 고친 이유를<br>확인한 뒤 받아들인다</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>와사비 = WA · SA · BI</h2>
+    <div class="grid g3">
+      <div class="card"><span class="tag">WA · Words &amp; AI</span><h3>말과 AI</h3><p>AI 음성인식 결과를 원문과 비교해 고쳐 말하고, AI 첨삭은 "무엇을 왜 고쳤는지"를 확인한 뒤 고릅니다.</p></div>
+      <div class="card"><span class="tag">SA · Speaking &amp; Awareness</span><h3>말하기와 성찰</h3><p>1차시·8차시에 같은 여섯 문장을 녹음해 비교하고, AI에게 맡길 일과 내가 할 일을 구분합니다.</p></div>
+      <div class="card"><span class="tag">BI · Book &amp; Inquiry</span><h3>책과 탐구</h3><p>그림책 『<span class="jp">もったいない</span>』 17장면을 나누어 맡고, 빅카인즈로 일본의 환경 정책을 탐구합니다.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>수업 흐름 — S.M.I.L.E.</h2>
+    <div class="scroll">
+      <table class="flow">
+        <thead><tr><th>단계</th><th>환경 캠페인 (10차시)</th><th><span class="jp">もったいない</span> (9차시)</th></tr></thead>
+        <tbody>
+          <tr><td class="st">S 문제 인식</td><td>일본 재활용 기호 읽기, 구글 폼 퀴즈로 사전 진단</td><td>그림책 통독, 공통 여섯 문장 익히고 1차 녹음</td></tr>
+          <tr><td class="st">M 주제 선정</td><td>빅카인즈로 일본 환경 정책 분석, 모둠 주제 정하기</td><td>담당 장면 문장 카드, 말의 형식 비교 역할극·인터뷰</td></tr>
+          <tr><td class="st">I 탐구 제작</td><td>AI 첨삭 대본으로 공익광고 영상, 바이브코딩 웹앱</td><td>AI 음성인식 실험, 학교 사례 슬로건, 키링·화분</td></tr>
+          <tr><td class="st">L 발표 공유</td><td>일본 오카야마 고교와 Zoom·Padlet 교류, 웹앱 전교 배포</td><td>모둠 발표, 2차 녹음, 학급 결과물집</td></tr>
+          <tr><td class="st">E 성찰 일반화</td><td>나 스스로와의 약속 3가지를 급식실에 게시</td><td>재능도 <span class="jp">もったいない</span> — 진로와 잇는 성찰</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>학생 산출물</h2>
+    <div class="photos">
+      <figure><img src="img/ad.jpg" alt="일본어 자막이 들어간 공익광고 영상 한 장면" loading="lazy"><figcaption>일본어 공익광고 영상</figcaption></figure>
+      <figure><img src="img/zero.jpg" alt="학생이 만든 잔반 제로 웹앱 화면" loading="lazy"><figcaption>학생 웹앱 「잔반 제로」</figcaption></figure>
+      <figure><img src="img/eco_game.jpg" alt="학생이 만든 일본어 분리배출 게임 화면" loading="lazy"><figcaption>학생 게임 「エコ分別ゲーム」</figcaption></figure>
+      <figure><img src="img/keyring.jpg" alt="그림책 속 일본어 문장을 손글씨로 적은 키링" loading="lazy"><figcaption>그림책 문장 키링</figcaption></figure>
+      <figure><img src="img/culturebox.jpg" alt="일본 오카야마에서 보내온 과자와 안내 자료" loading="lazy"><figcaption>일본에서 온 컬처박스</figcaption></figure>
+      <figure><img src="img/worksheet_app.jpg" alt="디지털학습지의 차시별 도장판 화면" loading="lazy"><figcaption>AI 말하기 디지털학습지</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>수업 결과</h2>
+    <p class="legend">사전·사후 평균(5점 척도, 두 번 모두 응답한 56명)<i style="background:var(--gray2)"></i>사전<i style="background:var(--accent)"></i>사후</p>
+    <div class="bars" id="bars"></div>
+    <div class="grid g3" style="margin-top:16px">
+      <div class="card"><h3 style="color:var(--accent)">56명 중 47명</h3><p>평균이 오름(83.9%). 가장 낮던 일본어 자신감이 가장 크게 상승</p></div>
+      <div class="card"><h3 style="color:var(--accent)">54.9% → 19.7%</h3><p>「신문지는 타는 쓰레기」 오개념. 지식 문항 정답률 26.8% → 72.7%</p></div>
+      <div class="card"><h3 style="color:var(--accent)">87명 전원</h3><p>자기 장면을 일본어로 말하고, 1·8차시 녹음 비교로 발음을 스스로 고침</p></div>
+    </div>
+    <div class="grid g2" style="margin-top:12px">
+      <blockquote>「일본어를 단순히 교과서에서 배우는 언어가 아니라, 실제로 사람들에게 메시지를 전달하는 데 활용할 수 있다는 것을 느꼈다.」<small>학생 성찰문</small></blockquote>
+      <blockquote>「처음에는 환경 보호를 개인이 실천하는 작은 행동이라고 생각했지만 … 개인의 실천과 사회의 제도, 구성원의 협력이 함께 이루어져야 한다는 생각으로 달라졌다.」<small>학생 성찰</small></blockquote>
+    </div>
+  </section>
+
+  <section class="rule">
+    <h2>AI 활용 원칙 — 세 칸 표</h2>
+    <div class="grid g3">
+      <div class="card"><h3>AI에게 맡길 일</h3><ul><li>캐치카피 여러 안 만들기</li><li>웹앱 코드 초안</li><li>음성 합성·인식</li></ul></div>
+      <div class="card"><h3>내가 직접 할 일</h3><ul><li>첫 문장은 내가 쓰기</li><li>고를 이유 정하기</li><li>직접 말하고 녹음하기</li></ul></div>
+      <div class="card"><h3>꼭 확인할 일</h3><ul><li>고친 이유와 출처</li><li>인식이 틀린 까닭</li><li>보호자 동의·초상권</li></ul></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    참고: APEC(2020) Putrajaya Vision 2040 · APEC(2021) Aotearoa Plan of Action · 『<span class="jp">もったいない</span>』(プラネット・リンク 編, 新装版) · 한국언론진흥재단 빅카인즈 · 교육부(2022) 제2외국어과 교육과정<br>
+    학생 개인정보는 싣지 않았으며, 사진은 얼굴과 이름이 드러나지 않는 것만 골랐습니다.
+  </div>
+</footer>
+
+<script>
+const data=[["한일 생활문화 비교해 설명",2.96,4.12],["일본어 안내문·광고 읽기",2.69,3.82],["여러 문장으로 쓰고 말하기",2.69,3.77],["일본인 앞에서 말하기",2.85,3.73],["뉴스·통계로 문제 읽기",3.54,4.09],["AI 첨삭 이유 확인",3.76,4.23]];
+const box=document.getElementById("bars");
+for(const [n,a,b] of data){
+  const d=document.createElement("div");d.className="bar";
+  d.innerHTML=`<div class="lab"><span>${n}</span><span><em>${a.toFixed(2)} → </em><strong>${b.toFixed(2)}</strong></span></div>
+  <div class="track pre"><i style="width:${a/5*100}%"></i></div><div class="track post"><i style="width:${b/5*100}%"></i></div>`;
+  box.appendChild(d);
+}
+</script>
+</body>
+</html>
