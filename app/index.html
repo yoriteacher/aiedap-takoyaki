@@ -460,6 +460,9 @@
 </div>
 
 <script>
+/* 기계 음성(speechSynthesis)이 없는 브라우저 대비 */
+if(!window.speechSynthesis){ try{ window.speechSynthesis={getVoices:()=>[],speak(){},cancel(){},speaking:false,pending:false,onvoiceschanged:null}; }catch(e){} }
+if(!window.SpeechSynthesisUtterance){ window.SpeechSynthesisUtterance=function(t){ this.text=t; }; }
 /* ====== 선생님 설정: 결과 수집 ======
    학생들의 결과를 구글 시트로 한곳에 모으려면, 아래 따옴표 안에
    구글 Apps Script 웹앱 URL을 붙여넣은 뒤 다시 배포하세요.
