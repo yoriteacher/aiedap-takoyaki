@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<title>타코야키 — 일본어 발음 체험</title>
+<title>다코야키 — 일본어 발음 체험</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper:#fbf2e4; --ink:#23281a; --ink-soft:#5d6450;
-    /* 주조색: 타코야키 갈색 (기존 --vermilion 이름을 그대로 재사용) */
+    /* 주조색: 다코야키 갈색 (기존 --vermilion 이름을 그대로 재사용) */
     --vermilion:#b5602a; --vermilion-deep:#7f3f16; --gold:#d79a3a;
     --green:#2e7d4f; --line:#ead6bb; --shadow:rgba(35,40,26,.14);
     /* 재연습·경고용 따뜻한 대비색 */
@@ -198,13 +198,13 @@
   .tako-code{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:14px;line-height:1.5}
   .tako-code b{color:var(--vermilion-deep);font-weight:700}
   .phrase-group{width:100%;font-size:12px;font-weight:700;color:var(--vermilion-deep);margin:6px 0 2px;letter-spacing:.04em}
-  /* ====== 타코야키 가게 (게임 화면) ====== */
+  /* ====== 다코야키 가게 (게임 화면) ====== */
   .shop{position:relative;border-radius:18px;overflow:hidden;margin-bottom:14px;background:#fbe9d2;border:1px solid var(--line);box-shadow:0 12px 28px -18px var(--shadow)}
   .shop-scene{display:block;width:100%;height:auto;aspect-ratio:16/8;object-fit:cover;object-position:center 62%;background:linear-gradient(180deg,#fff3e2,#f7dcb8)}
   .hud{position:absolute;top:8px;left:8px;right:8px;display:flex;justify-content:space-between;gap:6px;pointer-events:none}
   .hud span{background:rgba(255,250,242,.92);border:1px solid #edd3b1;border-radius:999px;padding:5px 11px;font-size:13px;font-weight:700;color:var(--vermilion-deep);box-shadow:0 4px 10px -6px rgba(90,45,15,.35)}
-  .hud .combo{color:#fff;background:linear-gradient(135deg,#e07a3a,#b5602a);border-color:transparent;opacity:0;transform:scale(.8);transition:.25s}
-  .hud .combo.on{opacity:1;transform:scale(1)}
+  .shop > .combo{position:absolute;left:50%;top:40px;transform:translateX(-50%) scale(.8);font-size:13px;font-weight:800;color:#fff;background:linear-gradient(135deg,#e07a3a,#b5602a);border-radius:999px;padding:4px 12px;opacity:0;transition:.25s;pointer-events:none;box-shadow:0 4px 10px -6px rgba(90,45,15,.5)}
+  .shop > .combo.on{opacity:1;transform:translateX(-50%) scale(1)}
   .order{display:flex;gap:10px;align-items:flex-end;padding:12px 12px 0}
   .order img{width:72px;height:72px;border-radius:50%;object-fit:cover;background:#fff;border:3px solid #fff;box-shadow:0 6px 14px -8px rgba(90,45,15,.5);flex:none}
   .bubble{position:relative;flex:1;background:#fff;border-radius:16px;padding:10px 13px;font-size:13.5px;line-height:1.5;box-shadow:0 8px 18px -12px rgba(90,45,15,.45);margin-bottom:6px}
@@ -249,6 +249,27 @@
   .confetti i{position:absolute;top:-20px;width:10px;height:10px;border-radius:50%;animation:fall 1.6s ease-in forwards}
   @keyframes fall{to{transform:translateY(110vh) rotate(540deg);opacity:.8}}
   @media (prefers-reduced-motion:reduce){.tray .now,.tray .pop,.react img,.confetti i{animation:none}}
+  /* ── 레벨 고르기 ── */
+  body:not(.level-pick) #levelPick{display:none}
+  body.level-pick #appView > *:not(.studentbar):not(#levelPick):not(.warn){display:none!important}
+  .level-btn{display:flex;gap:14px;align-items:center;width:100%;text-align:left;font-family:inherit;cursor:pointer;border:2px solid #edd3b1;background:#fffaf2;border-radius:16px;padding:16px 14px;margin-top:10px;transition:.15s;touch-action:manipulation;color:var(--ink)}
+  .level-btn:active{transform:scale(.98)}
+  .level-btn:hover{border-color:var(--vermilion)}
+  .level-btn .lv-no{flex:none;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:#fff;background:radial-gradient(circle at 35% 30%,#f6c47c,#b5602a 70%,#7f3f16)}
+  .level-btn.topping .lv-no{background:radial-gradient(circle at 35% 30%,#bfe08f,#6aa84f 70%,#3d6e2c)}
+  .level-btn .lv-body{display:flex;flex-direction:column;gap:3px}
+  .level-btn b{font-size:17px;color:var(--vermilion-deep)}
+  .level-btn.topping b{color:#3d6e2c}
+  .level-btn small{font-size:13px;color:var(--ink-soft);line-height:1.5}
+  .level-btn em{font-style:normal;font-size:12px;color:var(--gold);font-weight:700}
+  .shop-level{position:absolute;left:50%;top:8px;transform:translateX(-50%);background:rgba(127,63,22,.88);color:#fff;font-size:12px;font-weight:700;border-radius:999px;padding:5px 10px;white-space:nowrap;pointer-events:none}
+  body.lv-topping .shop-level{background:rgba(61,110,44,.9)}
+  body.lv-topping .target-input{border-bottom-color:#9bc37a}
+  .end-level{font-size:13px;font-weight:700;color:var(--ink-soft);margin-top:4px}
+  .end-toppings{margin:12px 0 0;text-align:left}
+  .end-toppings ul{list-style:none;display:grid;gap:6px}
+  .end-toppings li{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;display:flex;justify-content:space-between;gap:8px;font-size:15px}
+  .end-toppings li b{color:#f2b31c;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -256,22 +277,22 @@
   <header>
     <img class="mascot" src="img/mascot.png" alt="" width="76" height="76">
     <div class="kanji-mark">た こ や き</div>
-    <h1>타코야키</h1>
+    <h1>다코야키</h1>
     <p>일본어 발음 연습 · 소리 내어 읽으면 인식 성공률을 판정합니다 (<span id="머리기준">70</span>% 이상 통과)</p>
   </header>
 
   <!-- ====== 시작 화면 ====== -->
   <div id="startView">
     <div class="warn" id="deviceNote"></div>
-    <img class="hero" src="img/hero.jpg" alt="마이크에 대고 말하는 타코야키 캐릭터와 화분·분리수거함·지구·그림책" width="1200" height="800">
+    <img class="hero" src="img/hero.jpg" alt="마이크에 대고 말하는 다코야키 캐릭터와 화분·분리수거함·지구·그림책" width="1200" height="800">
     <div class="welcome">
       <span class="ic">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 14a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2Z"/></svg>
       </span>
-      <p>손님이 주문한 일본어 문장을 <b>소리 내어 말하면</b>, AI 음성인식이 알아듣고 철판에 <b>타코야키가 구워져요</b>. 10알을 구워 한 접시를 완성해 보세요!</p>
+      <p>손님이 주문한 일본어 문장을 <b>소리 내어 말하면</b>, AI 음성인식이 알아듣고 철판에 <b>다코야키가 구워져요</b>. 10알을 구워 한 접시를 완성해 보세요!</p>
     </div>
     <div class="card">
-      <div class="label">타코야키 = TA · KO · YA · KI</div>
+      <div class="label">다코야키 = TA · KO · YA · KI</div>
       <div class="tako-code">
         <b>TA</b><span>Talk &amp; AI — 말과 AI</span>
         <b>KO</b><span>Kindness &amp; Openness — 배려와 열린 마음</span>
@@ -306,7 +327,7 @@
   <!-- ====== 연습 화면 ====== -->
   <div id="appView" class="hidden">
     <div class="studentbar">
-      <div class="who">타코야키 <b id="whoName">체험</b></div>
+      <div class="who">다코야키 <b id="whoName">체험</b></div>
       <div class="links">
         <button id="modeBtn">연습장</button>
         <button id="growthBtn">내 성장</button>
@@ -315,18 +336,30 @@
       </div>
     </div>
     <div class="warn err" id="warn"></div>
+    <div class="card level-pick-card" id="levelPick">
+      <div class="label">레벨 고르기</div>
+      <button class="level-btn" id="lvOriginal">
+        <span class="lv-no">Lv.1</span>
+        <span class="lv-body"><b>다코야키 오리지널</b><small>손님이 주문한 그림책·환경 캠페인 문장 10개를 말해 한 접시를 구워요.</small><em id="best_original"></em></span>
+      </button>
+      <button class="level-btn topping" id="lvTopping">
+        <span class="lv-no">Lv.2</span>
+        <span class="lv-body"><b>다코야키 토핑 챌린지</b><small>내가 직접 쓴 일본어 문장 5개를 토핑처럼 올려 특별한 접시를 구워요.</small><em id="best_topping"></em></span>
+      </button>
+    </div>
     <div class="shop" id="shop">
-      <img class="shop-scene" src="img/shop.jpg" alt="타코야키 노점과 둥근 철판" width="1280" height="720">
+      <img class="shop-scene" src="img/shop.jpg" alt="다코야키 노점과 둥근 철판" width="1280" height="720">
       <div class="hud">
         <span id="hudPlate">접시 0/10</span>
-        <span class="combo" id="hudCombo">콤보 ×2</span>
         <span id="hudStars">★ 0</span>
       </div>
+      <div class="shop-level" id="shopLevel">다코야키 오리지널</div>
+      <span class="combo" id="hudCombo">콤보 ×2</span>
       <div class="order">
         <img src="img/customer.png" alt="주문하는 손님" width="72" height="72">
         <div class="bubble" id="orderBubble">어서 오세요! 주문을 받아 볼까요?</div>
       </div>
-      <div class="tray"><svg id="traySvg" viewBox="0 0 330 140" role="img" aria-label="타코야키 철판 10칸"></svg></div>
+      <div class="tray"><svg id="traySvg" viewBox="0 0 330 140" role="img" aria-label="다코야키 철판"></svg></div>
     </div>
 
     <div class="card">
@@ -401,16 +434,19 @@
 
     <div class="card end" id="gameEnd">
       <img src="img/cheer.png" alt="" width="150" height="150">
-      <h2>한 접시 완성!</h2>
-      <div class="grade" id="endGrade">타코야키 장인</div>
+      <div class="end-level" id="endLevel">다코야키 오리지널</div>
+      <h2 id="endTitle">한 접시 완성!</h2>
+      <div class="grade" id="endGrade">다코야키 장인</div>
       <div class="sum">
-        <div><b id="endStars">0</b>별 / 30</div>
-        <div><b id="endBaked">0</b>알 / 10</div>
+        <div><b id="endStars">0</b>별 / <span id="endStarsMax">30</span></div>
+        <div><b id="endBaked">0</b>알 / <span id="endBakedMax">10</span></div>
         <div><b id="endCombo">0</b>최고 콤보</div>
       </div>
+      <div class="end-toppings" id="endToppings"></div>
       <div class="best" id="endBest"></div>
       <div class="game-btns">
         <button class="game-btn" id="replayBtn">한 접시 더 굽기</button>
+        <button class="game-btn sub" id="otherLevelBtn">다른 레벨 고르기</button>
         <button class="game-btn sub" id="toPracticeBtn">연습장에서 연습하기</button>
       </div>
     </div>
@@ -673,18 +709,18 @@ function 문장단추그리기(){
     // 단추에는 한자만 보이면 됩니다. 후리가나는 큰 글에서 보여 줍니다.
     const b=document.createElement('button');
     b.textContent = p.표기 ? p.표기.replace(/\{([^{}|]+)\|[^{}|]+\}/g, '$1') : p.jp;
+    b.dataset.i=i;
     b.onclick=()=>{ customMode=false; current=i; renderTarget(); resetResult(); };
     tabs.appendChild(b);
   });
   customTab=document.createElement('button');
   customTab.textContent='✎ 직접 입력';
   customTab.onclick=()=>{ customMode=true; renderTarget(); resetResult(); customInput.focus(); };
-  tabs.appendChild(customTab);
 }
 문장단추그리기();
 
 function renderTarget(){
-  [...tabs.children].forEach((b,i)=>b.classList.toggle('active', !customMode && i===current));
+  [...tabs.querySelectorAll('button[data-i]')].forEach(b=>b.classList.toggle('active', !customMode && +b.dataset.i===current));
   customTab.classList.toggle('active', customMode);
   if(customMode){
     targetJp.style.display='none'; targetKor.style.display='none';
@@ -1240,7 +1276,7 @@ const growthMeta=document.getElementById('growthMeta');
 const growthChart=document.getElementById('growthChart');
 const growthStats=document.getElementById('growthStats');
 function renderGrowth(){
-  growthName.textContent='타코야키 체험';
+  growthName.textContent='다코야키 체험';
   // 본인 기록만, 오래된 순
   const mine=loadRecords().filter(r=>r.number===studentNo && r.name===studentName)
                           .sort((a,b)=>new Date(a.time)-new Date(b.time));
@@ -1321,55 +1357,87 @@ const thVal=document.getElementById('thVal');
 const 머리기준=document.getElementById('머리기준');
 thSlider.oninput=()=>{ threshold=+thSlider.value; thVal.textContent=threshold; 머리기준.textContent=threshold; };
 머리기준.textContent=threshold;   // 첫 화면도 실제 기준을 보여 줍니다
-/* ====== 타코야키 가게 (게임 규칙) ======
-   - 손님이 문장 10개를 하나씩 주문한다. 말해서 통과하면 철판 한 칸에 타코야키가 구워진다.
+/* ====== 다코야키 가게 (게임 규칙) ======
+   레벨 1 「다코야키 오리지널」: 손님이 주어진 문장 10개를 주문한다. 말해서 통과하면 철판 한 칸에 다코야키가 구워진다.
+   레벨 2 「다코야키 토핑 챌린지」: 학생이 일본어 문장을 직접 써서(토핑) 말한다. 5알이면 한 접시.
    - 별: 90% 이상 ★★★, 80% 이상 ★★, 통과 기준 이상 ★
-   - 한 주문에 기회 3번. 세 번 다 못 넘기면 그 칸은 탄 타코야키가 된다.
+   - 한 주문에 기회 3번. 세 번 다 못 넘기면 그 칸은 탄 다코야키가 된다.
    - 첫 번에 통과하면 콤보가 이어진다.
-   - 10칸이 다 차면 한 접시 완성. 최고 기록은 이 기기에만 저장한다. */
-const 게임 = { 순서: [], i: 0, 시도: 0, 별: 0, 콤보: 0, 최고콤보: 0, 칸: [], 잠김: false };
-const 최고열쇠 = 'takoyaki_best_v1';
+   - 칸이 다 차면 한 접시 완성. 최고 기록은 레벨마다 이 기기에만 저장한다. */
+const 레벨정보 = {
+  original: { 이름:'다코야키 오리지널', 칸수:10, 최고열쇠:'takoyaki_best_v1' },
+  topping:  { 이름:'다코야키 토핑 챌린지', 칸수:5, 최고열쇠:'takoyaki_best_topping_v1' }
+};
+const 게임 = { 레벨:'original', 순서: [], i: 0, 시도: 0, 별: 0, 콤보: 0, 최고콤보: 0, 칸: [], 잠김: false, 방금:-1 };
 const 손님말 = ['いらっしゃいませ！ 주문할게요.', 'おねがいします！', 'これ、ください！', 'たのしみ！ 맛있게 부탁해요.', 'すみません、ちゅうもんです！'];
+const 토핑손님말 = ['오늘은 특별 토핑으로 부탁해요!', 'おまかせで！ 내 마음에 드는 문장으로요.', '새로운 맛이 궁금해요!', 'トッピング、おねがいします！'];
+const 일본어글자 = /[぀-ヿ一-鿿]/;
 
+function 칸수(){ return 레벨정보[게임.레벨].칸수; }
 function 섞기(n){ const a=[...Array(n).keys()]; for(let k=a.length-1;k>0;k--){ const j=Math.floor(Math.random()*(k+1)); [a[k],a[j]]=[a[j],a[k]]; } return a; }
 function 별수(score){ if(score>=90) return 3; if(score>=80) return 2; if(score>=threshold) return 1; return 0; }
+function 최고읽기(lv){ try{ return +localStorage.getItem(레벨정보[lv].최고열쇠)||0; }catch(e){ return 0; } }
 
 function 철판그리기(){
   const svg=document.getElementById('traySvg'); if(!svg) return;
+  const n=칸수();
   let h='<rect x="4" y="4" width="322" height="132" rx="22" fill="#5a4636"/><rect x="10" y="10" width="310" height="120" rx="18" fill="#4a382b"/>';
-  for(let k=0;k<10;k++){
-    const x=45+60*(k%5), y=k<5?40:100, c=게임.칸[k];
+  for(let k=0;k<n;k++){
+    const x=45+60*(k%5), y = n===5 ? 70 : (k<5?40:100), c=게임.칸[k];
     h+=`<circle class="hole" cx="${x}" cy="${y}" r="24"/>`;
     if(c && c.별>0){
+      const 토핑 = 게임.레벨==='topping' ? `<circle cx="${x-7}" cy="${y-3}" r="2.6" fill="#6aa84f"/><circle cx="${x+6}" cy="${y-1}" r="2.3" fill="#e2593b"/><circle cx="${x}" cy="${y+3}" r="2" fill="#f6d36b"/>` : '';
       h+=`<g class="ball${k===게임.방금?' pop':''}"><circle cx="${x}" cy="${y}" r="21" fill="url(#takoBall)"/>`+
          `<path d="M${x-15} ${y-6} q15 -14 30 0 q-4 5 -8 2 q-4 6 -8 1 q-4 6 -8 1 q-3 4 -6 -4z" fill="#5a2a0e"/>`+
          `<polyline points="${x-11},${y-9} ${x-6},${y-14} ${x-1},${y-9} ${x+4},${y-14} ${x+9},${y-9}" fill="none" stroke="#fffaf0" stroke-width="2" stroke-linecap="round"/>`+
-         `<text x="${x}" y="${y+16}" text-anchor="middle" font-size="9" class="star">${'★'.repeat(c.별)}</text></g>`;
+         토핑 + `<text x="${x}" y="${y+16}" text-anchor="middle" font-size="9" class="star">${'★'.repeat(c.별)}</text></g>`;
     } else if(c && c.별===0){
       h+=`<g class="ball${k===게임.방금?' pop':''}"><circle cx="${x}" cy="${y}" r="21" fill="#2b211b"/><circle cx="${x-6}" cy="${y-6}" r="4" fill="#3f3229"/><path d="M${x+2} ${y-26} q4 -6 0 -12" stroke="#9a8f86" stroke-width="2" fill="none" stroke-linecap="round"/></g>`;
     }
-    if(k===게임.i && 게임.i<10 && !c) h+=`<circle class="now" cx="${x}" cy="${y}" r="27"/>`;
+    if(k===게임.i && 게임.i<n && !c) h+=`<circle class="now" cx="${x}" cy="${y}" r="27"/>`;
   }
   svg.innerHTML=h;
 }
 function 머리판(){
-  document.getElementById('hudPlate').textContent=`접시 ${게임.칸.filter(Boolean).length}/10`;
+  document.getElementById('hudPlate').textContent=`${게임.레벨==='topping'?'토핑':'접시'} ${게임.칸.filter(Boolean).length}/${칸수()}`;
   document.getElementById('hudStars').textContent=`★ ${게임.별}`;
   const cb=document.getElementById('hudCombo');
   cb.textContent=`콤보 ×${게임.콤보}`; cb.classList.toggle('on', 게임.콤보>=2);
 }
 function 주문받기(){
   게임.시도=0; 게임.잠김=false; 게임.방금=-1;
-  customMode=false; current=게임.순서[게임.i]; renderTarget(); resetResult();
-  document.getElementById('orderBubble').innerHTML=`<b>주문 ${게임.i+1}/10</b> · ${손님말[Math.floor(Math.random()*손님말.length)]}<br>아래 문장을 또박또박 말하면 타코야키가 구워져요.`;
-  micHint.textContent='타코야키 마이크를 누르고 주문 문장을 말해 보세요';
+  const 버블=document.getElementById('orderBubble');
+  if(게임.레벨==='topping'){
+    customMode=true; customInput.value=''; renderTarget(); resetResult();
+    customHint.textContent='히라가나·가타카나·한자로 내 문장을 써 보세요 (예: ごみを へらそう。)';
+    버블.innerHTML=`<b>토핑 주문 ${게임.i+1}/${칸수()}</b> · ${하나골라(토핑손님말)}<br>나만의 일본어 문장을 써서 말하면 특별한 다코야키가 구워져요.`;
+    micHint.textContent='문장을 쓴 뒤 다코야키 마이크를 누르고 말해 보세요';
+  } else {
+    customMode=false; current=게임.순서[게임.i]; renderTarget(); resetResult();
+    버블.innerHTML=`<b>주문 ${게임.i+1}/${칸수()}</b> · ${하나골라(손님말)}<br>아래 문장을 또박또박 말하면 다코야키가 구워져요.`;
+    micHint.textContent='다코야키 마이크를 누르고 주문 문장을 말해 보세요';
+  }
   철판그리기(); 머리판(); 게이지이름();
 }
-function 게임새로(){
-  Object.assign(게임,{ 순서: 섞기(PHRASES.length).slice(0,10), i:0, 시도:0, 별:0, 콤보:0, 최고콤보:0, 칸:[], 잠김:false });
+function 레벨고르기(){
+  document.body.classList.add('game-mode','level-pick');
   document.getElementById('gameEnd').classList.remove('show');
-  document.body.classList.add('game-mode');
   document.getElementById('modeBtn').textContent='연습장';
+  for(const lv of Object.keys(레벨정보)){
+    const e=document.getElementById('best_'+lv); const b=최고읽기(lv);
+    if(e) e.textContent = b ? `최고 기록 ${b}별 / ${레벨정보[lv].칸수*3}` : '아직 기록 없음';
+  }
+  document.getElementById('levelPick').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function 게임새로(lv){
+  if(lv) 게임.레벨=lv;
+  Object.assign(게임,{ 순서: 섞기(PHRASES.length).slice(0,10), i:0, 시도:0, 별:0, 콤보:0, 최고콤보:0, 칸:[], 잠김:false, 방금:-1 });
+  document.getElementById('gameEnd').classList.remove('show');
+  document.body.classList.remove('level-pick');
+  document.body.classList.add('game-mode');
+  document.body.classList.toggle('lv-topping', 게임.레벨==='topping');
+  document.getElementById('modeBtn').textContent='연습장';
+  document.getElementById('shopLevel').textContent=레벨정보[게임.레벨].이름;
   주문받기();
   document.getElementById('shop').scrollIntoView({behavior:'smooth',block:'start'});
 }
@@ -1380,13 +1448,12 @@ function 반응보이기(그림, 별개수, 말, 다시가능){
   document.getElementById('reactMsg').textContent=말;
   document.getElementById('againBtn').style.display=다시가능?'':'none';
   document.getElementById('nextBtn').style.display=게임.잠김?'':'none';
-  document.getElementById('nextBtn').textContent = 게임.i>=9 ? '접시 완성 보기 →' : '다음 주문 →';
+  document.getElementById('nextBtn').textContent = 게임.i>=칸수()-1 ? '접시 완성 보기 →' : (게임.레벨==='topping'?'다음 토핑 →':'다음 주문 →');
 }
-/* judge()가 점수를 매긴 직후 불린다 */
 
 /* ---------- 이야기꾼: 점수를 '익은 정도'와 짧은 이야기로 들려준다 ---------- */
 const 이야기 = {
-  3: { 제목:'황금빛 완벽 타코야키!', 글:[
+  3: { 제목:'황금빛 완벽 다코야키!', 글:[
         '철판 위에서 「치익—」 소리가 나더니, 동글동글 황금빛으로 익었어요. 손님이 한 입 먹고 눈이 동그래졌어요. 「おいしい！」',
         '가게 앞을 지나던 사람들까지 고소한 냄새에 발걸음을 멈췄어요. 오늘의 최고작이에요!',
         '겉은 바삭, 속은 촉촉. 손님이 엄지를 번쩍 들었어요. 「さいこう！」' ]},
@@ -1400,22 +1467,29 @@ const 이야기 = {
         '반죽이 아직 철판 위에서 보글보글해요. 빨간 글자를 천천히, 또박또박 다시 말해 볼까요?',
         '손님이 조용히 기다리고 있어요. 한 번 더 말하면 「치익—」 소리가 날 거예요.' ]},
   탐: { 제목:'앗, 타 버렸어요!', 글:[
-        '연기가 모락모락… 이번 타코야키는 까맣게 탔어요. 괜찮아요, 다음 주문에서 다시 구워요!' ]}
+        '연기가 모락모락… 이번 다코야키는 까맣게 탔어요. 괜찮아요, 다음 주문에서 다시 구워요!' ]}
+};
+const 토핑이야기 = {
+  3:'세상에 하나뿐인 토핑이 반짝반짝! 손님이 「このトッピング、さいこう！」 하고 사진까지 찍었어요.',
+  2:'새로운 토핑 맛에 손님이 고개를 끄덕였어요. 「おもしろい味！」',
+  1:'처음 보는 토핑이라 손님이 조심조심 먹어 봤어요. 「…おいしい！」'
 };
 function 하나골라(배열){ return 배열[Math.floor(Math.random()*배열.length)]; }
 function 이야기쓰기(열쇠, score){
   const 묶음=이야기[열쇠];
   verdict.textContent=묶음.제목;
   verdict.className='verdict '+(열쇠===0||열쇠==='탐'?'fail':'pass');
-  verdictSub.innerHTML=하나골라(묶음.글)+`<br><small style="opacity:.7">AI가 알아들은 정도 ${score}%</small>`;
+  const 글 = (게임.레벨==='topping' && 토핑이야기[열쇠]) ? 토핑이야기[열쇠] : 하나골라(묶음.글);
+  verdictSub.innerHTML=글+`<br><small style="opacity:.7">AI가 알아들은 정도 ${score}%</small>`;
 }
 function 게이지이름(){ const e=document.getElementById('pctLabel'); if(e) e.textContent=document.body.classList.contains('game-mode')?'익은 정도':'인식 성공률'; }
+/* judge()가 화면을 다 그린 뒤 불린다 */
 function 게임채점(score, pass){
-  if(게임.잠김 || 게임.i>=10) return;
+  if(document.body.classList.contains('level-pick') || 게임.잠김 || 게임.i>=칸수()) return;
   게임.시도++;
   const s=별수(score);
   if(s>0){
-    게임.칸[게임.i]={별:s}; 게임.별+=s; 게임.잠김=true; 게임.방금=게임.i;
+    게임.칸[게임.i]={별:s, 문장:getTarget()}; 게임.별+=s; 게임.잠김=true; 게임.방금=게임.i;
     if(게임.시도===1){ 게임.콤보++; } else { 게임.콤보=1; }
     게임.최고콤보=Math.max(게임.최고콤보, 게임.콤보);
     const 칭찬 = s===3 ? 'おいしい！ 완벽하게 구워졌어요!' : s===2 ? 'いいね！ 노릇노릇 잘 구워졌어요.' : 'できた！ 한 알 구웠어요.';
@@ -1433,24 +1507,35 @@ function 게임채점(score, pass){
   철판그리기(); 머리판();
 }
 function 다음주문(){
-  if(!게임.잠김 || 게임.i>=10) return;   /* 아직 굽는 중이거나 이미 끝난 접시면 무시 */
+  if(!게임.잠김 || 게임.i>=칸수()) return;   /* 아직 굽는 중이거나 이미 끝난 접시면 무시 */
   게임.i++;
-  if(게임.i>=10){ 접시완성(); return; }
+  if(게임.i>=칸수()){ 접시완성(); return; }
   주문받기();
   document.getElementById('shop').scrollIntoView({behavior:'smooth',block:'start'});
 }
 function 접시완성(){
   철판그리기(); 머리판(); resetResult();
+  const n=칸수(), 만점=n*3, 이름=레벨정보[게임.레벨].이름;
   const 구운=게임.칸.filter(c=>c&&c.별>0).length;
-  const 등급 = 게임.별>=24 ? '타코야키 명인 · たこやき名人' : 게임.별>=15 ? '타코야키 장인 · たこやき職人' : '타코야키 견습생 · 見習い';
+  const 비율=게임.별/만점;
+  const 등급 = 비율>=0.8 ? '다코야키 명인 · たこやき名人' : 비율>=0.5 ? '다코야키 장인 · たこやき職人' : '다코야키 견습생 · 見習い';
+  document.getElementById('endTitle').textContent = 게임.레벨==='topping' ? '토핑 접시 완성!' : '한 접시 완성!';
+  document.getElementById('endLevel').textContent = 이름;
   document.getElementById('endGrade').textContent=등급;
   document.getElementById('endStars').textContent=게임.별;
+  document.getElementById('endStarsMax').textContent=만점;
   document.getElementById('endBaked').textContent=구운;
+  document.getElementById('endBakedMax').textContent=n;
   document.getElementById('endCombo').textContent=게임.최고콤보;
-  let 최고=0; try{ 최고=+localStorage.getItem(최고열쇠)||0; }catch(e){}
+  const 목록=document.getElementById('endToppings');
+  if(게임.레벨==='topping'){
+    const 문장들=게임.칸.filter(c=>c&&c.별>0&&c.문장).map(c=>`<li><span class="jp">${c.문장.replace(/[<>&]/g,'')}</span> <b>${'★'.repeat(c.별)}</b></li>`);
+    목록.innerHTML = 문장들.length ? `<div class="label">오늘 올린 토핑</div><ul>${문장들.join('')}</ul>` : '';
+  } else 목록.innerHTML='';
+  const 최고=최고읽기(게임.레벨);
   const 새기록=게임.별>최고;
-  if(새기록){ try{ localStorage.setItem(최고열쇠,String(게임.별)); }catch(e){} }
-  document.getElementById('endBest').textContent = 새기록 ? `새 최고 기록! (이전 ${최고}별)` : `이 기기 최고 기록: ${최고}별`;
+  if(새기록){ try{ localStorage.setItem(레벨정보[게임.레벨].최고열쇠,String(게임.별)); }catch(e){} }
+  document.getElementById('endBest').textContent = 새기록 ? `새 최고 기록! (이전 ${최고}별)` : `이 레벨 최고 기록: ${최고}별`;
   const end=document.getElementById('gameEnd'); end.classList.add('show');
   end.scrollIntoView({behavior:'smooth',block:'center'});
   if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches) 꽃가루();
@@ -1463,18 +1548,25 @@ function 꽃가루(){
 }
 
 document.getElementById('nextBtn').onclick=다음주문;
-document.getElementById('againBtn').onclick=()=>{ resetResult(); micHint.textContent='다시 한 번! 타코야키 마이크를 누르세요'; micBtn.scrollIntoView({behavior:'smooth',block:'center'}); };
-document.getElementById('replayBtn').onclick=게임새로;
+document.getElementById('againBtn').onclick=()=>{ resetResult(); micHint.textContent='다시 한 번! 다코야키 마이크를 누르세요'; micBtn.scrollIntoView({behavior:'smooth',block:'center'}); };
+document.getElementById('replayBtn').onclick=()=>게임새로();
+document.getElementById('otherLevelBtn').onclick=레벨고르기;
+document.getElementById('lvOriginal').onclick=()=>게임새로('original');
+document.getElementById('lvTopping').onclick=()=>게임새로('topping');
 document.getElementById('toPracticeBtn').onclick=()=>{ document.getElementById('gameEnd').classList.remove('show'); 연습장으로(); };
-function 연습장으로(){ document.body.classList.remove('game-mode'); document.getElementById('modeBtn').textContent='가게로'; resetResult(); 문장단추그리기(); renderTarget(); micHint.textContent='버튼을 누르고 문장을 읽어보세요'; 게이지이름(); window.scrollTo({top:0,behavior:'smooth'}); }
-document.getElementById('modeBtn').onclick=()=>{ if(document.body.classList.contains('game-mode')) 연습장으로(); else 게임새로(); };
-startBtn.addEventListener('click', ()=>{ if(!startWarn.textContent) 게임새로(); });
-/* 이미 구운(또는 탄) 주문에서는 마이크를 막고 다음 주문으로 안내한다 */
+function 연습장으로(){ document.body.classList.remove('game-mode','level-pick','lv-topping'); document.getElementById('modeBtn').textContent='가게로'; customMode=false; resetResult(); 문장단추그리기(); renderTarget(); micHint.textContent='버튼을 누르고 문장을 읽어보세요'; 게이지이름(); window.scrollTo({top:0,behavior:'smooth'}); }
+document.getElementById('modeBtn').onclick=()=>{ if(document.body.classList.contains('game-mode')) 연습장으로(); else 레벨고르기(); };
+startBtn.addEventListener('click', ()=>{ if(!startWarn.textContent) 레벨고르기(); });
+/* 이미 구운 주문에서는 마이크를 막고, 토핑 챌린지에서는 일본어 문장을 먼저 쓰게 한다 */
 document.querySelector('.mic-area').addEventListener('click', e=>{
-  if(document.body.classList.contains('game-mode') && 게임.잠김 && e.target.closest('#micBtn')){
-    e.stopPropagation(); e.preventDefault();
-    micHint.textContent='이 타코야키는 다 구웠어요! 아래 「다음 주문」을 눌러 주세요';
+  if(!document.body.classList.contains('game-mode') || !e.target.closest('#micBtn')) return;
+  const 막기=말=>{ e.stopPropagation(); e.preventDefault(); micHint.textContent=말; };
+  if(게임.잠김){
+    막기('이 다코야키는 다 구웠어요! 아래 「다음」 단추를 눌러 주세요');
     document.getElementById('nextBtn').scrollIntoView({behavior:'smooth',block:'center'});
+  } else if(게임.레벨==='topping' && !일본어글자.test(customInput.value)){
+    막기('먼저 일본어(히라가나·가타카나·한자)로 내 문장을 써 주세요');
+    customInput.focus();
   }
 }, true);
 </script>
