@@ -382,7 +382,7 @@
           <circle cx="80" cy="80" r="68" fill="none" stroke="#f0dcc2" stroke-width="13"/>
           <circle id="gaugeArc" cx="80" cy="80" r="68" fill="none" stroke="var(--vermilion)" stroke-width="13" stroke-linecap="round" stroke-dasharray="427" stroke-dashoffset="427"/>
         </svg>
-        <div class="gauge-num"><span class="pct" id="pctNum">0%</span><span class="pct-label">인식 성공률</span></div>
+        <div class="gauge-num"><span class="pct" id="pctNum">0%</span><span class="pct-label" id="pctLabel">인식 성공률</span></div>
       </div>
       <div class="verdict" id="verdict"></div>
       <div class="verdict-sub" id="verdictSub"></div>
@@ -476,45 +476,55 @@ const COLLECT_URL = "";   /* 체험용: 결과를 어디로도 보내지 않는�
 let PHRASES = [
   {
     "jp": "もったいない。",
-    "kor": "아깝다."
+    "kor": "아깝다.",
+    "소리": "audio/01.mp3"
   },
   {
     "jp": "まだ つかえます。",
-    "kor": "아직 쓸 수 있어요."
+    "kor": "아직 쓸 수 있어요.",
+    "소리": "audio/02.mp3"
   },
   {
     "jp": "たいせつに つかいましょう。",
-    "kor": "소중하게 씁시다."
+    "kor": "소중하게 씁시다.",
+    "소리": "audio/03.mp3"
   },
   {
     "jp": "すてないで ください。",
-    "kor": "버리지 마세요."
+    "kor": "버리지 마세요.",
+    "소리": "audio/04.mp3"
   },
   {
     "jp": "のこさないで たべます。",
-    "kor": "남기지 않고 먹어요."
+    "kor": "남기지 않고 먹어요.",
+    "소리": "audio/05.mp3"
   },
   {
     "jp": "じぶんの のうりょくが だいじです。",
-    "kor": "나의 능력이 소중해요."
+    "kor": "나의 능력이 소중해요.",
+    "소리": "audio/06.mp3"
   },
   {
     "jp": "ちきゅうを まもろう！",
     "kor": "지구를 지키자!",
-    "표기": "{地球|ちきゅう}を まもろう！"
+    "표기": "{地球|ちきゅう}を まもろう！",
+    "소리": "audio/07.mp3"
   },
   {
     "jp": "ごみを へらそう。",
-    "kor": "쓰레기를 줄이자."
+    "kor": "쓰레기를 줄이자.",
+    "소리": "audio/08.mp3"
   },
   {
     "jp": "みらいのために、いま できること。",
     "kor": "미래를 위해, 지금 할 수 있는 일.",
-    "표기": "{未来|みらい}のために、いま できること。"
+    "표기": "{未来|みらい}のために、いま できること。",
+    "소리": "audio/09.mp3"
   },
   {
     "jp": "いっしょに ちゃんと ぶんべつ しましょう。",
-    "kor": "같이 제대로 분리배출해요."
+    "kor": "같이 제대로 분리배출해요.",
+    "소리": "audio/10.mp3"
   }
 ];
 const 묶음제목 = {"0": "그림책 『もったいない』 공통 여섯 문장", "6": "환경 캠페인 캐치카피"};
@@ -1172,18 +1182,18 @@ function speakResult(score,pass){
 function judge(heardText){
   const score=similarity(getTarget(),heardText);
   const pass=score>=threshold;
-  if(typeof 게임채점==='function' && document.body.classList.contains('game-mode')) 게임채점(score,pass);
   result.classList.add('show');
   diff.innerHTML='목표: '+buildDiff(getTarget(),heardText);
   gaugeArc.style.stroke=pass?'var(--green)':'var(--alert)';
   let cur=0; const timer=setInterval(()=>{ cur+=2; if(cur>=score){cur=score;clearInterval(timer);} pctNum.textContent=cur+'%'; gaugeArc.style.strokeDashoffset=CIRC-(CIRC*cur/100); },14);
   if(pass){ verdict.textContent='✓ 통과!'; verdict.className='verdict pass'; verdictSub.textContent=`인식률 ${score}% · 발음이 정확해요. 훌륭합니다! 🎉`; }
   else{ verdict.textContent='✗ 다시 연습'; verdict.className='verdict fail'; verdictSub.textContent=`인식률 ${score}% · ${threshold}% 이상이 필요해요. 표시된 글자를 다시 발음해 보세요.`; }
-  setTimeout(()=>speakResult(score,pass),300);
+  if(!document.body.classList.contains('game-mode')) setTimeout(()=>speakResult(score,pass),300);
   // 기록 저장 + 선생님 시트로 전송
   const rec={ number:studentNo, name:studentName, phrase:getTarget(), heard:heardText, score, pass, threshold, time:new Date().toISOString() };
   const recs=loadRecords(); recs.push(rec); saveRecords(recs);
   sendToTeacher(rec);
+  if(typeof 게임채점==='function' && document.body.classList.contains('game-mode')) 게임채점(score,pass);
   result.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 function resetResult(){ result.classList.remove('show'); heard.classList.remove('show'); }
@@ -1350,7 +1360,7 @@ function 주문받기(){
   customMode=false; current=게임.순서[게임.i]; renderTarget(); resetResult();
   document.getElementById('orderBubble').innerHTML=`<b>주문 ${게임.i+1}/10</b> · ${손님말[Math.floor(Math.random()*손님말.length)]}<br>아래 문장을 또박또박 말하면 타코야키가 구워져요.`;
   micHint.textContent='타코야키 마이크를 누르고 주문 문장을 말해 보세요';
-  철판그리기(); 머리판();
+  철판그리기(); 머리판(); 게이지이름();
 }
 function 게임새로(){
   Object.assign(게임,{ 순서: 섞기(PHRASES.length).slice(0,10), i:0, 시도:0, 별:0, 콤보:0, 최고콤보:0, 칸:[], 잠김:false });
@@ -1370,6 +1380,33 @@ function 반응보이기(그림, 별개수, 말, 다시가능){
   document.getElementById('nextBtn').textContent = 게임.i>=9 ? '접시 완성 보기 →' : '다음 주문 →';
 }
 /* judge()가 점수를 매긴 직후 불린다 */
+
+/* ---------- 이야기꾼: 점수를 '익은 정도'와 짧은 이야기로 들려준다 ---------- */
+const 이야기 = {
+  3: { 제목:'황금빛 완벽 타코야키!', 글:[
+        '철판 위에서 「치익—」 소리가 나더니, 동글동글 황금빛으로 익었어요. 손님이 한 입 먹고 눈이 동그래졌어요. 「おいしい！」',
+        '가게 앞을 지나던 사람들까지 고소한 냄새에 발걸음을 멈췄어요. 오늘의 최고작이에요!',
+        '겉은 바삭, 속은 촉촉. 손님이 엄지를 번쩍 들었어요. 「さいこう！」' ]},
+  2: { 제목:'노릇노릇 잘 익었어요', 글:[
+        '노릇노릇 맛있게 익었어요. 손님이 「いいね！」 하며 웃었어요. 조금만 더 또렷하면 황금빛이 돼요.',
+        '소스가 반짝반짝, 가쓰오부시가 춤을 춰요. 거의 다 왔어요!' ]},
+  1: { 제목:'살짝 덜 익었지만 합격!', 글:[
+        '조금 말랑하지만 손님이 맛있게 먹어 주었어요. 「できた！」 다음엔 더 노릇하게 구워 봐요.',
+        '한 알 완성! 손님이 고개를 끄덕였어요. 빨간 글자를 연습하면 더 맛있어져요.' ]},
+  0: { 제목:'아직 반죽 상태예요…', 글:[
+        '반죽이 아직 철판 위에서 보글보글해요. 빨간 글자를 천천히, 또박또박 다시 말해 볼까요?',
+        '손님이 조용히 기다리고 있어요. 한 번 더 말하면 「치익—」 소리가 날 거예요.' ]},
+  탐: { 제목:'앗, 타 버렸어요!', 글:[
+        '연기가 모락모락… 이번 타코야키는 까맣게 탔어요. 괜찮아요, 다음 주문에서 다시 구워요!' ]}
+};
+function 하나골라(배열){ return 배열[Math.floor(Math.random()*배열.length)]; }
+function 이야기쓰기(열쇠, score){
+  const 묶음=이야기[열쇠];
+  verdict.textContent=묶음.제목;
+  verdict.className='verdict '+(열쇠===0||열쇠==='탐'?'fail':'pass');
+  verdictSub.innerHTML=하나골라(묶음.글)+`<br><small style="opacity:.7">AI가 알아들은 정도 ${score}%</small>`;
+}
+function 게이지이름(){ const e=document.getElementById('pctLabel'); if(e) e.textContent=document.body.classList.contains('game-mode')?'익은 정도':'인식 성공률'; }
 function 게임채점(score, pass){
   if(게임.잠김 || 게임.i>=10) return;
   게임.시도++;
@@ -1380,12 +1417,15 @@ function 게임채점(score, pass){
     게임.최고콤보=Math.max(게임.최고콤보, 게임.콤보);
     const 칭찬 = s===3 ? 'おいしい！ 완벽하게 구워졌어요!' : s===2 ? 'いいね！ 노릇노릇 잘 구워졌어요.' : 'できた！ 한 알 구웠어요.';
     반응보이기('img/cheer.png', s, 칭찬 + (게임.콤보>=2?` 콤보 ×${게임.콤보}!`:''), false);
+    이야기쓰기(s, score);
   } else if(게임.시도<3){
     게임.콤보=0;
-    반응보이기('img/tryagain.png', 0, `조금만 더! 남은 기회 ${3-게임.시도}번. 빨간 글자를 다시 말해 보세요.`, true);
+    반응보이기('img/tryagain.png', 0, `남은 기회 ${3-게임.시도}번`, true);
+    이야기쓰기(0, score);
   } else {
     게임.칸[게임.i]={별:0}; 게임.콤보=0; 게임.잠김=true; 게임.방금=게임.i;
-    반응보이기('img/tryagain.png', 0, '앗, 조금 탔어요! 다음 주문에서 다시 도전해요.', false);
+    반응보이기('img/tryagain.png', 0, '다음 주문에서 다시 도전!', false);
+    이야기쓰기('탐', score);
   }
   철판그리기(); 머리판();
 }
@@ -1423,9 +1463,17 @@ document.getElementById('nextBtn').onclick=다음주문;
 document.getElementById('againBtn').onclick=()=>{ resetResult(); micHint.textContent='다시 한 번! 타코야키 마이크를 누르세요'; micBtn.scrollIntoView({behavior:'smooth',block:'center'}); };
 document.getElementById('replayBtn').onclick=게임새로;
 document.getElementById('toPracticeBtn').onclick=()=>{ document.getElementById('gameEnd').classList.remove('show'); 연습장으로(); };
-function 연습장으로(){ document.body.classList.remove('game-mode'); document.getElementById('modeBtn').textContent='가게로'; resetResult(); 문장단추그리기(); renderTarget(); micHint.textContent='버튼을 누르고 문장을 읽어보세요'; window.scrollTo({top:0,behavior:'smooth'}); }
+function 연습장으로(){ document.body.classList.remove('game-mode'); document.getElementById('modeBtn').textContent='가게로'; resetResult(); 문장단추그리기(); renderTarget(); micHint.textContent='버튼을 누르고 문장을 읽어보세요'; 게이지이름(); window.scrollTo({top:0,behavior:'smooth'}); }
 document.getElementById('modeBtn').onclick=()=>{ if(document.body.classList.contains('game-mode')) 연습장으로(); else 게임새로(); };
 startBtn.addEventListener('click', ()=>{ if(!startWarn.textContent) 게임새로(); });
+/* 이미 구운(또는 탄) 주문에서는 마이크를 막고 다음 주문으로 안내한다 */
+document.querySelector('.mic-area').addEventListener('click', e=>{
+  if(document.body.classList.contains('game-mode') && 게임.잠김 && e.target.closest('#micBtn')){
+    e.stopPropagation(); e.preventDefault();
+    micHint.textContent='이 타코야키는 다 구웠어요! 아래 「다음 주문」을 눌러 주세요';
+    document.getElementById('nextBtn').scrollIntoView({behavior:'smooth',block:'center'});
+  }
+}, true);
 </script>
 </body>
 </html>
