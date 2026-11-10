@@ -516,54 +516,54 @@ let PHRASES = [
   {
     "jp": "もったいない。",
     "kor": "아깝다.",
-    "소리": "audio/01.mp3"
+    "소리": "audio/01.mp3?v=3"
   },
   {
     "jp": "まだ つかえます。",
     "kor": "아직 쓸 수 있어요.",
-    "소리": "audio/02.mp3"
+    "소리": "audio/02.mp3?v=3"
   },
   {
     "jp": "たいせつに つかいましょう。",
     "kor": "소중하게 씁시다.",
-    "소리": "audio/03.mp3"
+    "소리": "audio/03.mp3?v=3"
   },
   {
     "jp": "すてないで ください。",
     "kor": "버리지 마세요.",
-    "소리": "audio/04.mp3"
+    "소리": "audio/04.mp3?v=3"
   },
   {
     "jp": "のこさないで たべます。",
     "kor": "남기지 않고 먹어요.",
-    "소리": "audio/05.mp3"
+    "소리": "audio/05.mp3?v=3"
   },
   {
     "jp": "じぶんの のうりょくが だいじです。",
     "kor": "나의 능력이 소중해요.",
-    "소리": "audio/06.mp3"
+    "소리": "audio/06.mp3?v=3"
   },
   {
     "jp": "ちきゅうを まもろう！",
     "kor": "지구를 지키자!",
     "표기": "{地球|ちきゅう}を まもろう！",
-    "소리": "audio/07.mp3"
+    "소리": "audio/07.mp3?v=3"
   },
   {
     "jp": "ごみを へらそう。",
     "kor": "쓰레기를 줄이자.",
-    "소리": "audio/08.mp3"
+    "소리": "audio/08.mp3?v=3"
   },
   {
     "jp": "みらいのために、いま できること。",
     "kor": "미래를 위해, 지금 할 수 있는 일.",
     "표기": "{未来|みらい}のために、いま できること。",
-    "소리": "audio/09.mp3"
+    "소리": "audio/09.mp3?v=3"
   },
   {
     "jp": "いっしょに ちゃんと ぶんべつ しましょう。",
     "kor": "같이 제대로 분리배출해요.",
-    "소리": "audio/10.mp3"
+    "소리": "audio/10.mp3?v=3"
   }
 ];
 const 묶음제목 = {"0": "그림책 『もったいない』 공통 여섯 문장", "6": "환경 캠페인 캐치카피"};
@@ -938,13 +938,14 @@ function 소리틀열기(){
 /* 소리를 틉니다. 못 틀면 거짓을 돌려줍니다. */
 function 틀기(주소, 글){
   return new Promise(맺음 => {
-    const ㅌ = 소리틀마련();
+    const 미리 = window.미리소리 && 미리소리.get(주소);
+    const ㅌ = 미리 || 소리틀마련();
     if(!ㅌ || !주소){ 맺음(false); return; }
     let 끝났나 = false;
     const 맺기 = ㄱ => { if(끝났나) return; 끝났나 = true; 맺음(ㄱ); };
     try{
       ㅌ.onerror = () => { 지금소리 = null; 맺기(false); };
-      ㅌ.src = 주소;
+      if(미리){ try{ ㅌ.currentTime = 0; }catch(e){} } else ㅌ.src = 주소;
       지금소리 = ㅌ;
       const ㅍ = ㅌ.play();
       if(ㅍ && ㅍ.then) ㅍ.then(() => 맺기(true)).catch(() => { 지금소리 = null; 맺기(false); });
@@ -1569,6 +1570,14 @@ document.querySelector('.mic-area').addEventListener('click', e=>{
     customInput.focus();
   }
 }, true);
+/* 녹음 10개를 앱이 열릴 때 미리 받아 둔다 — 누르자마자 소리가 나게 */
+window.미리소리 = new Map();
+(function 녹음미리받기(){
+  PHRASES.forEach(p=>{
+    const u = 소리주소(p.소리); if(!u || 미리소리.has(u)) return;
+    try{ const a=new Audio(); a.preload='auto'; a.src=u; a.load(); 미리소리.set(u,a); }catch(e){}
+  });
+})();
 </script>
 </body>
 </html>
